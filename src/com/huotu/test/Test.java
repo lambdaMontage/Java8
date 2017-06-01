@@ -61,6 +61,7 @@ public class Test {
         /** 引用特殊类 */
         final Car ploice = Car.create(Car::new);
         cars.forEach(ploice::follow);
+        System.out.println("Hello World");
     }
 
 
