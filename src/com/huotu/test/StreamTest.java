@@ -1,10 +1,15 @@
 package com.huotu.test;
 
+import org.junit.Test;
+
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.time.Clock;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -14,7 +19,7 @@ import java.util.stream.Collectors;
 /**
  * Created by mensonges on 2017/5/18.
  */
-public class Streams {
+public class StreamTest {
         private enum Status {
             OPEN, CLOSED
         }
@@ -54,7 +59,7 @@ public class Streams {
         final long totalPointsOpenTasks = tasks
                 /** 转换为流式处理 */
                 .stream()
-                /** 过滤掉除 开启状态以外的其他数据 */
+                /** 得到Status== OPEN的所有数据  */
                 .filter(task -> task.getStatus() == Status.OPEN)
                 /** 得到Task实例点数 并转成Integer */
                 .mapToInt(task ->task.getPoints())
@@ -65,8 +70,8 @@ public class Streams {
         /** 查找所有状态的节点 */
        final double totalPointsAll = tasks
                .stream()
-               .parallel()
-               .map(Task::getPoints)
+               .parallel()      //返回并行等效流 多线程的执行
+               .map(Task::getPoints)//将getPoints的值转换为新的流
                .reduce(0,Integer::sum);
         System.out.println("All Total points"+ totalPointsAll);
 
@@ -85,7 +90,7 @@ public class Streams {
                 .mapToLong( weigth -> ( long )( weigth * 100 ) ) // LongStream
                 .mapToObj( percentage -> percentage + "%" )      // Stream< String>
                 .collect( Collectors.toList() );                 // List< String >
-        System.out.println(result);
+        System.out.println(result); //打印一个list集合
     }
 
     @org.junit.Test
@@ -109,4 +114,78 @@ public class Streams {
         System.out.println(engine.getClass().getName());
         System.out.println( "Result:" + engine.eval( "function f() { return 1; }; f() + 1;" ) );
     }
+
+    /**
+     *
+     * 串行流 单线程执行 Stream
+     *
+     */
+    @org.junit.Test
+    public void testStream() {
+        // 起始时间
+        LocalTime start = LocalTime.now();
+        List<Integer> list = new ArrayList<>();
+        // 将10000-1存入list中
+        for (int i = 10000; i >= 1; i--) {
+            list.add(i);
+        }
+        list.stream()// 获取串行流
+                .sorted()// 按自然排序，即按数字从小到大排序
+                .count();// count()是终止操作，有终止操作才会执行中间操作sorted()
+
+        // 终止时间
+        LocalTime end = LocalTime.now();
+        // 时间间隔
+        Duration duration = Duration.between(start, end);
+        // 输出时间间隔毫秒值
+        System.out.println(duration.toMillis());
+    }
+
+    /**
+     * 并行流 多线程执行
+     */
+    @org.junit.Test
+    public void testParallelStream() {
+        // 起始时间
+        LocalTime start = LocalTime.now();
+
+        List<Integer> list = new ArrayList<>();
+        // 将10000-1存入list中
+        for (int i = 10000; i >= 1; i--) {
+            list.add(i);
+        }
+        list.parallelStream().sorted().count();
+        list.parallelStream()// 获取并行流
+                .sorted()// 按自然排序，即按数字从小到大排序
+                .count();// count()是终止操作，有终止操作才会执行中间操作sorted()
+
+        // 终止时间
+        LocalTime end = LocalTime.now();
+        // 时间间隔
+        Duration duration = Duration.between(start, end);
+        // 输出时间间隔毫秒值
+        System.out.println(duration.toMillis());
+    }
+
+    /**
+     * 使用Stream编程优点如下
+     * 减少模板代码 代码语句更加明确
+     * 外部迭代变成 内部迭代，方便JVM调优。
+     *
+     */
+    @Test
+    public void test4(){
+        List<String> list = Arrays.asList("2one", "two", "three", "4four");
+        /** 集合中得到以数字开头的字符串 */
+        list.stream()// 1.得到容器的Steam
+                .filter(str -> Character.isDigit(str.charAt(0)))// 2.选出以数字开头的字符串
+                .forEach(str -> System.out.println(str));// 3.输出字符串
+        /** 集合中得到非数字开头字符串，并转换成大写*/
+        list.stream()
+                .filter(str -> !Character.isDigit(str.charAt(0)))
+                .map(String::toUpperCase)
+                .collect(Collectors.toSet());
+    }
 }
+
+
