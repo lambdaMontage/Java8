@@ -1,11 +1,18 @@
 package com.insightfullogic.java8.answers.chapter4;
 
 import com.insightfullogic.java8.examples.chapter1.Artist;
+import org.junit.Test;
 
 import java.util.List;
 import java.util.Optional;
 
 public class ArtistsFixed {
+
+   @Test
+    public void test(){
+       int index = 2;
+       getArtistName(index);
+    }
 
     private List<Artist> artists;
 
@@ -22,8 +29,8 @@ public class ArtistsFixed {
 
     public String getArtistName(int index) {
         Optional<Artist> artist = getArtist(index);
-        return artist.map(Artist::getName)
-                     .orElse("unknown");
+
+        return artist.map(Artist::getName).orElse("Error");
     }
 
 }

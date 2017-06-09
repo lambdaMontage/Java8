@@ -8,8 +8,14 @@ import static java.util.stream.Collectors.groupingBy;
 
 public class WordCount {
 
+    /**
+     * 计算每个单词出现次数并返回map
+     * @param names
+     * @return
+     */
     public static Map<String, Long> countWords(Stream<String> names) {
         return names.collect(groupingBy(name -> name, counting()));
     }
+
 
 }

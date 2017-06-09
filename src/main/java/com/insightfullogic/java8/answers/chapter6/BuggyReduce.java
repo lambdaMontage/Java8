@@ -14,6 +14,25 @@ public static int multiplyThrough(List<Integer> linkedListOfNumbers) {
     // END buggyMultiplyThrough
     */
 
+    /**
+     * 集合中的数字相乘，再乘以5
+     *
+     * @param linkListOfNumbers 整数型集合
+     * @return
+     */
+
+    public static int multiply(List<Integer> linkListOfNumbers){
+        return  linkListOfNumbers.stream()
+                                    .reduce(5,(x,y) -> x * y);
+
+    }
+
+    /**
+     * 并行 集合中的数字相乘 再乘以5
+     *
+     * @param numbers 整数型集合
+     * @return
+     */
     public static int multiplyThrough(List<Integer> numbers) {
         return 5 * numbers.parallelStream()
                           .reduce(1, (acc, x) -> x * acc);
