@@ -37,6 +37,11 @@ public class Optional2 {
     }
 
     public static void main(String[] args) {
+        /**
+         * 对Optional容器进行操作
+         * new出来的对象，调用时显示其hash码值
+         * 有值的对象 调用时显示这个值
+         * */
         test1();
         test2();
         test3();
@@ -70,7 +75,7 @@ public class Optional2 {
         Optional.of(new Outer())
                 .flatMap(o -> Optional.ofNullable(o.nested))
                 .flatMap(n -> Optional.ofNullable(n.inner))
-                .flatMap(i -> Optional.ofNullable(i.foo))
+                .flatMap(f -> Optional.ofNullable(f.foo))
                 .ifPresent(System.out::println);
     }
 }

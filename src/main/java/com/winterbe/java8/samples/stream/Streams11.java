@@ -57,14 +57,16 @@ public class Streams11 {
                 });
 
         System.out.format("name=%s; age=%s", result.name, result.age);
+        //name=MaxPeterPamelaDavid; age=76
     }
 
     private static void test3(List<Person> persons) {
         Integer ageSum = persons
-            .stream()
-            .reduce(0, (sum, p) -> sum += p.age, (sum1, sum2) -> sum1 + sum2);
+                .stream()
+                .reduce(0,(sum,p) -> sum += p.age,(sum1,sum2) ->sum1+sum2);
 
         System.out.println(ageSum);
+        //76
     }
 
     private static void test4(List<Person> persons) {

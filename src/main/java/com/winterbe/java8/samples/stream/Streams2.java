@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Benjamin Winterberg
+ * @author montage
  */
 public class Streams2 {
 
@@ -22,7 +22,9 @@ public class Streams2 {
 
 
         // sorting
-
+        /**
+         * 排序遍历 集合
+         */
         stringCollection
                 .stream()
                 .sorted()

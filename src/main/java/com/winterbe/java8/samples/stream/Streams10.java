@@ -41,7 +41,7 @@ public class Streams10 {
 //        test3(persons);
 //        test4(persons);
 //        test5(persons);
-//        test6(persons);
+        test6(persons);
 //        test7(persons);
 //        test8(persons);
         test9(persons);
@@ -90,13 +90,11 @@ public class Streams10 {
 
     private static void test5(List<Person> persons) {
         String names = persons
-            .stream()
-            .filter(p -> p.age >= 18)
-            .map(p -> p.name)
-            .collect(Collectors.joining(" and ", "In Germany ", " are of legal age."));
-
+                .stream()
+                .filter(p -> p.age >= 10)
+                .map(p -> p.name)
+                .collect(Collectors.joining("$","hello","lambda"));
         System.out.println(names);
-        // In Germany Max and Peter and Pamela are of legal age.
     }
 
     private static void test6(List<Person> persons) {
@@ -112,12 +110,13 @@ public class Streams10 {
     }
 
     private static void test7(List<Person> persons) {
-        Collector<Person, StringJoiner, String> personNameCollector =
-            Collector.of(
-                () -> new StringJoiner(" | "),          // supplier
-                (j, p) -> j.add(p.name.toUpperCase()),  // accumulator
-                (j1, j2) -> j1.merge(j2),               // combiner
-                StringJoiner::toString);                // finisher
+        Collector<Person,StringJoiner,String> personNameCollector = Collector.of(
+                () -> new StringJoiner("1"),    // supplier 按照规则分离
+                (s,p) -> s.add(p.name.toUpperCase()),   // accumulator 转换成大写
+                (s1,s2) -> s1.merge(s2),                // combiner
+                StringJoiner::toString                  // finisher*/
+        );
+
 
         String names = persons
             .stream()

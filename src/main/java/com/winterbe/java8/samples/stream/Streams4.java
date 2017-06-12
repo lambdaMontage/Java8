@@ -4,7 +4,7 @@ import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
 /**
- * @author Benjamin Winterberg
+ * @author montage
  */
 public class Streams4 {
 
@@ -24,14 +24,21 @@ public class Streams4 {
             .filter(i -> i % 2 == 1)
             .forEach(System.out::println);
 
+        /**
+         * 返回 0 到 9 数据相加的值
+         */
         OptionalInt reduced1 =
             IntStream.range(0, 10)
                 .reduce((a, b) -> a + b);
-        System.out.println(reduced1.getAsInt());
+        System.out.println(reduced1.getAsInt()); // 45
 
+
+        /**
+         * 返回 0 到 9 数据相加的值 再加7
+         */
         int reduced2 =
             IntStream.range(0, 10)
                 .reduce(7, (a, b) -> a + b);
-        System.out.println(reduced2);
+        System.out.println(reduced2); // 52
     }
 }

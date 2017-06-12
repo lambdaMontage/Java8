@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 /**
- * @author Benjamin Winterberg
+ *
+ * peek flatMap 流式处理
+ * @author montage
  */
 public class Streams7 {
 
@@ -32,13 +34,20 @@ public class Streams7 {
     }
 
     static void test2() {
-        IntStream.range(1, 4)
-            .mapToObj(num -> new Foo("Foo" + num))
-            .peek(f -> IntStream.range(1, 4)
-                .mapToObj(num -> new Bar("Bar" + num + " <- " + f.name))
+
+        IntStream.range(0, 5)
+                .mapToObj(num -> new Foo("Foo" + num))
+                //对每个元素执行操作 遍历数据 添加到 bars中
+                .peek(f -> IntStream.range(0, 5)
+                .mapToObj(num -> new Bar("Bar" + num + "<>" + f.name))
                 .forEach(f.bars::add))
-            .flatMap(f -> f.bars.stream())
-            .forEach(b -> System.out.println(b.name));
+                //将List<Bar> bars 转换成流
+                .flatMap(f -> f.bars.stream())
+                .forEach(c -> System.out.println(c.name));
+
+
+
+
     }
 
     static void test1() {

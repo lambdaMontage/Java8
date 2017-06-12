@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 /**
  * Testing the order of execution.
  *
- * @author Benjamin Winterberg
+ * @author montage
  */
 public class Streams5 {
 
@@ -16,7 +16,7 @@ public class Streams5 {
         List<String> strings =
             Arrays.asList("d2", "a2", "b1", "b3", "c");
 
-//        test1(strings);
+        test1(strings);
 //        test2(strings);
 //        test3(strings);
 //        test4(strings);
@@ -34,6 +34,7 @@ public class Streams5 {
 
         streamSupplier.get().anyMatch(s -> true);
         streamSupplier.get().noneMatch(s -> true);
+
     }
 
     // stream has already been operated upon or closed

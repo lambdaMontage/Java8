@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @author Benjamin Winterberg
+ * @author montage
  */
 public class Streams1 {
 
@@ -23,7 +23,9 @@ public class Streams1 {
 
 
         // filtering
-
+        /**
+         * 遍历 集合中a开头的字符串
+         */
         stringCollection
                 .stream()
                 .filter((s) -> s.startsWith("a"))
@@ -33,41 +35,53 @@ public class Streams1 {
 
 
         // sorting
-
+        /**
+         *
+         * 遍历并排序 集合中a开头的字符串
+         */
         stringCollection
                 .stream()
                 .sorted()
                 .filter((s) -> s.startsWith("a"))
                 .forEach(System.out::println);
-
         // "aaa1", "aaa2"
 
 
         // mapping
-
+        /**
+         * 集合元素转换成大写，并排序遍历结果
+         */
         stringCollection
                 .stream()
-                .map(String::toUpperCase)
-                .sorted((a, b) -> b.compareTo(a))
+                .sorted()
+                .map((s) ->s.toUpperCase())
                 .forEach(System.out::println);
-
-        // "DDD2", "DDD1", "CCC", "BBB3", "BBB2", "AAA2", "AAA1"
 
 
         // matching
 
+        /**
+         * 集合中是否包含以 a开头的字符串
+         */
         boolean anyStartsWithA = stringCollection
-                .stream()
-                .anyMatch((s) -> s.startsWith("a"));
+                    .stream()
+                    .anyMatch((s) -> s.startsWith("a"));
 
         System.out.println(anyStartsWithA);      // true
 
+
+        /**
+         * 集合中所有元素是否 以a开头
+         */
         boolean allStartsWithA = stringCollection
                 .stream()
                 .allMatch((s) -> s.startsWith("a"));
 
         System.out.println(allStartsWithA);      // false
 
+        /**
+         * 集合中是否存在不以 z开头的字符串
+         */
         boolean noneStartsWithZ = stringCollection
                 .stream()
                 .noneMatch((s) -> s.startsWith("z"));
@@ -77,6 +91,9 @@ public class Streams1 {
 
         // counting
 
+        /**
+         * 统计集合中以 b开头的字符串个数
+         */
         long startsWithB = stringCollection
                 .stream()
                 .filter((s) -> s.startsWith("b"))
@@ -87,6 +104,9 @@ public class Streams1 {
 
         // reducing
 
+        /**
+         *聚合函数 集合中的字符串以“#”连接
+         */
         Optional<String> reduced =
                 stringCollection
                         .stream()
