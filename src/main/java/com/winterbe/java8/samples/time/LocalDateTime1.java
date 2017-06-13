@@ -10,7 +10,7 @@ import java.time.temporal.ChronoField;
 import java.util.Date;
 
 /**
- * @author Benjamin Winterberg
+ * @author montage
  */
 public class LocalDateTime1 {
 
@@ -21,8 +21,8 @@ public class LocalDateTime1 {
         DayOfWeek dayOfWeek = sylvester.getDayOfWeek();
         System.out.println(dayOfWeek);      // WEDNESDAY
 
-        Month month = sylvester.getMonth();
-        System.out.println(month);          // DECEMBER
+        int dayOfMonth = sylvester.getDayOfMonth();
+        System.out.println(dayOfMonth);          // DECEMBER
 
         long minuteOfDay = sylvester.getLong(ChronoField.MINUTE_OF_DAY);
         System.out.println(minuteOfDay);    // 1439

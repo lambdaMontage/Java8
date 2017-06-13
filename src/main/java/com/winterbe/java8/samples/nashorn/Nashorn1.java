@@ -18,7 +18,7 @@ public class Nashorn1 {
 
     public static void main(String[] args) throws Exception {
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
-        engine.eval(new FileReader("res/nashorn1.js"));
+        engine.eval(new FileReader("../../../res/nashorn1.js"));
 
         Invocable invocable = (Invocable) engine;
         Object result = invocable.invokeFunction("fun1", "Peter Parker");

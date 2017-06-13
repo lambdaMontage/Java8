@@ -17,14 +17,15 @@ public class LocalTime1 {
 
     public static void main(String[] args) {
 
-        // get the current time
+        // 获得当前时钟毫秒值
         Clock clock = Clock.systemDefaultZone();
         long t0 = clock.millis();
         System.out.println(t0);
 
+        //获得时钟的当前时刻
         Instant instant = clock.instant();
         Date legacyDate = Date.from(instant);
-
+        System.out.println(legacyDate);
 
         ZoneId zone1 = ZoneId.of("Europe/Berlin");
         ZoneId zone2 = ZoneId.of("Brazil/East");

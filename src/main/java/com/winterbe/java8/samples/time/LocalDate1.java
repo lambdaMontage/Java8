@@ -9,7 +9,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 
 /**
- * @author Benjamin Winterberg
+ * jdk1.8中的时间日期API
+ * @author mmontage
  */
 public class LocalDate1 {
 
@@ -22,9 +23,12 @@ public class LocalDate1 {
         System.out.println(tomorrow);
         System.out.println(yesterday);
 
-        LocalDate independenceDay = LocalDate.of(2014, Month.JULY, 4);
+        /**
+         * 得到当前时间的星期
+         */
+        LocalDate independenceDay = LocalDate.of(2017, Month.JUNE, 4);
         DayOfWeek dayOfWeek = independenceDay.getDayOfWeek();
-        System.out.println(dayOfWeek);    // FRIDAY
+        System.out.println(dayOfWeek);    // SUNDAY
 
         DateTimeFormatter germanFormatter =
                 DateTimeFormatter
